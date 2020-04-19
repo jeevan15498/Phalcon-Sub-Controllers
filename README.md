@@ -1,27 +1,30 @@
 # Phalcon Sub-Controllers
+How to use sub-controller folder in Phalcon.
 
 * https://github.com/phalcon/mvc/tree/master/simple-subcontrollers
 
 ## Doc
 
-1. Set Project Base URL Path: `app\config\config.php`
+1. Firstly Set Project `Base URL` Path: `app\config\config.php`
 
     ```php
     'baseUri' => '/phalcon/simple-subcontrollers',
     ```
-2. Register Namespaces: `app\config\loader.php`
+2. So to create a sub-controller we also need a `namespace` that we use in that sub-controller file.
+    - Register Namespaces: `app\config\loader.php`
     ```php
     $loader->registerNamespaces(
         [
-            'MyApp\Controllers'         => __DIR__ . '/../controllers/',
-            'MyApp\Controllers\Admin'   => __DIR__ . '/../controllers/admin'
+            'MyApp\Controllers'         => __DIR__ . '/../controllers/',        // Root Controller
+            'MyApp\Controllers\Admin'   => __DIR__ . '/../controllers/admin'    // Sub Controller
+            // namespace => folder path
         ]
     )->register();
     ```
-    How to use namespaces.
+    And this is how we use the `namespace` at the top of the controller file. You can check in the `Controller` folder of the project.
     ```php
-    namespace MyApp\Controllers;            // app\controllers\IndexController.php
-    namespace MyApp\Controllers\Admin;      // app\controllers\admin\UsersController.php
+    namespace MyApp\Controllers;            // Root Controller: app\controllers\IndexController.php
+    namespace MyApp\Controllers\Admin;      // Sub Controller:  app\controllers\admin\UsersController.php
     ```
 3. Create Default Controller and Controller Action: `app\config\routes.php`
 
@@ -46,7 +49,7 @@
     );
     ```
 4. Create Index Controller `app\controllers\IndexController.php` and Layout File `app\views\index\index.volt`
-5. Create a sub folder `admin` in the `controllers` folder
+5. Now we create a sub-controller directory. Create a sub folder `admin` in the `controllers` folder
 
     ![](assets/1.png)
 6. Create `ControllerBase.php` Controller in the admin sub controller directory
@@ -84,7 +87,7 @@
         }
     }
     ```
-8. Insert Route
+8. Insert `sub-controller` Route
 
     ```php
     $router->add('/admin/:controller', [
